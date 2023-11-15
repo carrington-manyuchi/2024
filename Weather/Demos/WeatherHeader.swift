@@ -9,14 +9,40 @@ import UIKit
 
 class WeatherHeader: UITableViewHeaderFooterView {
     
+    public static let WeatherHeader = "identifier"
     
     private let headerStackView: UIStackView = {
-        
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .center
         stackView.distribution = .fillEqually
         stackView.axis = .horizontal
+        return stackView
+    }()
+    
+    private let firstStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        stackView.axis = .vertical
+        return stackView
+    }()
+    private let secondStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
+    private let thirdStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        stackView.axis = .vertical
         return stackView
     }()
     
@@ -78,10 +104,13 @@ class WeatherHeader: UITableViewHeaderFooterView {
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-                self.addSubview(headerView)
-                headerView.addSubview(headerTempLabel)
-                headerView.addSubview(headerSummaryLabel)
-                configureConstraints()
+        self.addSubview(headerStackView)
+        headerStackView.addArrangedSubview(firstStackView)
+        headerStackView.addArrangedSubview(secondStackView)
+        headerStackView.addArrangedSubview(thirdStackView)
+        firstStackView.addArrangedSubview(headerMinTemp)
+        firstStackView.addArrangedSubview(headerMinLabel)
+        configureConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -90,28 +119,15 @@ class WeatherHeader: UITableViewHeaderFooterView {
     
     public func configureConstraints() {
         
-        let headerViewConstraints = [
-            headerView.topAnchor.constraint(equalTo: self.topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            headerView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+        let headerStackViewConstraints = [
+            headerStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            headerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            headerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            headerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ]
         
-        let headerTempLabelConstraints = [
-            headerTempLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 50),
-            headerTempLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-        ]
-        
-        let headerSummaryLabelConstraints = [
-            headerSummaryLabel.topAnchor.constraint(equalTo: headerTempLabel.bottomAnchor, constant: 30),
-            headerSummaryLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            headerSummaryLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -30)
-        ]
-        
-        NSLayoutConstraint.activate(headerViewConstraints)
-        NSLayoutConstraint.activate(headerTempLabelConstraints)
-        NSLayoutConstraint.activate(headerSummaryLabelConstraints)
+        NSLayoutConstraint.activate(headerStackViewConstraints)
     }
-}
+
 
 }

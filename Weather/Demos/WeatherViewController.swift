@@ -34,14 +34,31 @@ class WeatherViewController: UIViewController {
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         return label
     }()
+    
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .systemBackground
+        tableView.separatorColor = .systemGray
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(WeatherHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        return tableView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .systemBackground
+
         view.addSubview(headerView)
         headerView.addSubview(headerTempLabel)
         headerView.addSubview(headerSummaryLabel)
+        
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+
         configureConstraints()
+
     }
     
     public func configureConstraints() {
@@ -64,9 +81,35 @@ class WeatherViewController: UIViewController {
             headerSummaryLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -30)
         ]
         
+        let tableViewConstraints = [
+            tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ]
+        
         NSLayoutConstraint.activate(headerViewConstraints)
         NSLayoutConstraint.activate(headerTempLabelConstraints)
         NSLayoutConstraint.activate(headerSummaryLabelConstraints)
+        NSLayoutConstraint.activate(tableViewConstraints)
     }
 
 }
+
+extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        cell?.textLabel?.text = "Carrington"
+        return cell!
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
+        return header
+    }
+}
+
