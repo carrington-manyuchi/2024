@@ -24,8 +24,13 @@ class HomeViewController: UIViewController {
         return label
     }()
 
-    
-
+    private let headerSummaryLabel: UILabel = {
+        let label  = UILabel()
+        label.text = "Sunny"
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        return label
+    }()
     
     
 
