@@ -9,38 +9,13 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private let headerView: UIView = {
-        let header = UIView()
-        header.backgroundColor = .red
-        return header
-    }()
-    
-    private let headerTempLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "25°"
-        label.textColor = .label
-        label.font = .systemFont(ofSize: 30, weight: .semibold)
-        label.numberOfLines = 1
-        return label
-    }()
-
-    private let headerSummaryLabel: UILabel = {
-        let label  = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Sunny"
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 18, weight: .semibold)
-        return label
-    }()
-    
-    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemBackground
         tableView.separatorColor = .systemGray
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(WeatherTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         return tableView
     }()
     
@@ -50,10 +25,14 @@ class HomeViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
-        configureconstraints()
+        configureConstraints()
+        
+//        let header = WeatherTableHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 200))
+//        tableView.tableHeaderView = header
+//        if #available(iOS 15.0, *, *) { tableView.sectionHeaderTopPadding = 0.0}
     }
     
-    private func configureconstraints() {
+    private func configureConstraints() {
         let tableViewConstraints = [
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -74,6 +53,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         cell?.textLabel?.text = "Carrington"
         return cell!
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
+        return header
     }
 }
 
