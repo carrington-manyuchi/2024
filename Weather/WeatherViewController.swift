@@ -8,11 +8,42 @@
 import UIKit
 
 class WeatherViewController: UIViewController {
+    
+    private let headerView: UIView = {
+        let header = UIView()
+        header.translatesAutoresizingMaskIntoConstraints = false
+        header.backgroundColor = .red
+        return header
+    }()
+    
+    private let headerTempLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "25°"
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 30, weight: .semibold)
+        label.numberOfLines = 1
+        return label
+    }()
+
+    private let headerSummaryLabel: UILabel = {
+        let label  = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Sunny"
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.addSubview(headerView)
+        headerView.addSubview(headerTempLabel)
+        headerView.addSubview(headerSummaryLabel)
+        configureConstraints()
 
-        // Do any additional setup after loading the view.
+
     }
     
 
