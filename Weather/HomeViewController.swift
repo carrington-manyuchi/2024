@@ -15,6 +15,16 @@ class HomeViewController: UIViewController {
         return header
     }()
     
+    private let headerTempLabel: UILabel = {
+        let label = UILabel()
+        label.text = "25°"
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        label.numberOfLines = 1
+        return label
+    }()
+
+    
 
     
     
