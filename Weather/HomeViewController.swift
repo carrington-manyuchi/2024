@@ -17,15 +17,17 @@ class HomeViewController: UIViewController {
     
     private let headerTempLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "25°"
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        label.textColor = .label
+        label.font = .systemFont(ofSize: 30, weight: .semibold)
         label.numberOfLines = 1
         return label
     }()
 
     private let headerSummaryLabel: UILabel = {
         let label  = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Sunny"
         label.textColor = .white
         label.font = .systemFont(ofSize: 18, weight: .semibold)
@@ -36,6 +38,8 @@ class HomeViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .systemBackground
+        tableView.separatorColor = .systemGray
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
@@ -51,12 +55,11 @@ class HomeViewController: UIViewController {
     
     private func configureconstraints() {
         let tableViewConstraints = [
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ]
-        
         NSLayoutConstraint.activate(tableViewConstraints)
     }
 
@@ -68,8 +71,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        cell?.textLabel?.text = "Carrington"
+        return cell!
     }
 }
 
