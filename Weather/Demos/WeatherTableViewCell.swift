@@ -13,6 +13,10 @@ class WeatherTableViewCell: UITableViewCell {
     
     private let bodyStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
         return stackView
     }()
     
@@ -36,6 +40,13 @@ class WeatherTableViewCell: UITableViewCell {
     }
     
     private func setupViews() {
+        self.addSubview(bodyStackView)
+        bodyStackView.addArrangedSubview(dayLabel)
+        bodyStackView.addArrangedSubview(weatherIcon)
+        bodyStackView.addArrangedSubview(tempLabel)
+    }
+    
+    private func configureConstraints() {
         
     }
     
