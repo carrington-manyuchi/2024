@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C448CDB2B0567B60003BF18 /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C448CDA2B0567B60003BF18 /* WeatherTableViewCell.swift */; };
 		8C71348F2B04D7BA00E93197 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C71348E2B04D7BA00E93197 /* AppDelegate.swift */; };
 		8C7134912B04D7BA00E93197 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7134902B04D7BA00E93197 /* SceneDelegate.swift */; };
 		8C7134932B04D7BA00E93197 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7134922B04D7BA00E93197 /* HomeViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C448CDA2B0567B60003BF18 /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 		8C71348B2B04D7BA00E93197 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C71348E2B04D7BA00E93197 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C7134902B04D7BA00E93197 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				8C7134A42B04FD8F00E93197 /* WeatherViewController.swift */,
+				8C448CDA2B0567B60003BF18 /* WeatherTableViewCell.swift */,
 				8C7134A72B04FF8100E93197 /* WeatherHeader.swift */,
 			);
 			path = Demos;
@@ -157,6 +160,7 @@
 			files = (
 				8C7134932B04D7BA00E93197 /* HomeViewController.swift in Sources */,
 				8C7134A82B04FF8100E93197 /* WeatherHeader.swift in Sources */,
+				8C448CDB2B0567B60003BF18 /* WeatherTableViewCell.swift in Sources */,
 				8C7134A52B04FD8F00E93197 /* WeatherViewController.swift in Sources */,
 				8C71348F2B04D7BA00E93197 /* AppDelegate.swift in Sources */,
 				8C7134912B04D7BA00E93197 /* SceneDelegate.swift in Sources */,
