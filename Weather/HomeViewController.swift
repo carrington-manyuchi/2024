@@ -7,7 +7,17 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
+    
+    private let headerView: UIView = {
+        let header = UIView()
+        header.backgroundColor = .red
+        return header
+    }()
+    
+
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
