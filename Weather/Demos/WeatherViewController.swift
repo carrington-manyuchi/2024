@@ -40,7 +40,7 @@ class WeatherViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemBackground
         tableView.separatorColor = .systemGray
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
         tableView.register(WeatherHeader.self, forHeaderFooterViewReuseIdentifier: "header")
         return tableView
     }()
@@ -64,7 +64,7 @@ class WeatherViewController: UIViewController {
     public func configureConstraints() {
         
         let headerViewConstraints = [
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.topAnchor.constraint(equalTo: view.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 200)
@@ -103,14 +103,22 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        cell?.textLabel?.text = "Carrington"
-        return cell!
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as? WeatherTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.dayLabel.text = "Wednesday"
+        cell.tempLabel.text = "23"
+        cell.weatherIcon.image = UIImage(systemName: "sun.max.fill")
+        return cell
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
         return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
 }
 
