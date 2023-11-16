@@ -9,6 +9,7 @@ import UIKit
 import CoreLocation
 
 class WeatherViewController: UIViewController {
+
     
     private let headerView: UIView = {
         let header = UIView()
@@ -18,9 +19,13 @@ class WeatherViewController: UIViewController {
     }()
     
     private let headerTempLabel: UILabel = {
+        
+        
+        
+        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "25°"
+        //label.text = "25°"
         label.textColor = .black
         label.font = .systemFont(ofSize: 30, weight: .semibold)
         label.numberOfLines = 1
@@ -53,21 +58,93 @@ class WeatherViewController: UIViewController {
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+        setupViews()
+    }
+    
+    func setupViews() {
         view.backgroundColor = .systemBackground
-
         view.addSubview(headerView)
         headerView.addSubview(headerTempLabel)
         headerView.addSubview(headerSummaryLabel)
-        
         view.addSubview(tableView)
-        tableView.delegate = self
-        tableView.dataSource = self
-
         configureConstraints()
-
+        setupLocation()
+        
+        headerTempLabel.text = current?.weather[0].main
     }
+    
+    func setupLocation() {
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if !locations.isEmpty, currentLocation == nil {
+            currentLocation = locations.first
+            locationManager.stopUpdatingLocation()
+            requestWeatherForLocation()
+        }
+    }
+    
+    func requestWeatherForLocation() {
+        guard let currentLocation = currentLocation else {
+            return
+        }
+        
+        let long = currentLocation.coordinate.longitude
+        let lat = currentLocation.coordinate.latitude
+        
+        
+         let url =  "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(long)&exclude=minutely,alerts&appid=a939b3a2c089cdc4dcefee3b74142319&units=metric"
+        
+        print("\(long) & \(lat)")
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: URL(string: url)!) { data, response, error in
+            guard let data = data,
+                  error == nil else {
+                print("Data Validation is wrong")
+                return
+            }
+            
+            var json: Weather?
+            
+            do {
+                json = try JSONDecoder().decode(Weather.self, from: data)
+            } catch {
+                print("error: \(error)")
+            }
+            
+            guard let result = json else {
+                return
+            }
+            let entries = result.daily
+            self.models.append(contentsOf: entries)
+            
+            let current = result.current
+            self.current = current
+            
+            let hours = result.hourly
+            self.hourly = hours
+            
+            print(result.hourly)
+            
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.tableView.tableHeaderView = self.headerView
+            }
+        }
+        dataTask.resume()
+    }
+    
+    
     
     public func configureConstraints() {
         

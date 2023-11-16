@@ -59,6 +59,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		8C448CE02B061C4E0003BF18 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		8C7134822B04D7BA00E93197 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +87,7 @@
 			children = (
 				8C71348E2B04D7BA00E93197 /* AppDelegate.swift */,
 				8C7134902B04D7BA00E93197 /* SceneDelegate.swift */,
+				8C448CE02B061C4E0003BF18 /* ViewModel */,
 				8C448CDD2B060A540003BF18 /* Model */,
 				8C448CDC2B060A030003BF18 /* Views */,
 				8C7134A62B04FF6500E93197 /* Controllers */,

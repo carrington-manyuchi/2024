@@ -9,7 +9,7 @@ import Foundation
 
 //MARK: Weather
 struct Weather: Codable {
-    let cuurent: Current
+    let current: Current
     let hourly: [Current]
     let daily: [Daily]
 }
