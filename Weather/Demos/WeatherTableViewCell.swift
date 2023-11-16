@@ -11,7 +11,7 @@ class WeatherTableViewCell: UITableViewCell {
     
     public static let identifier = "WeatherTableViewCell"
     
-    private let bodyStackView: UIStackView = {
+    private let weatherStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -22,6 +22,12 @@ class WeatherTableViewCell: UITableViewCell {
     
     private let dayLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Wednesday"
+        label.textColor = .label
+        label.font = .systemFont(ofSize: 13, weight: .regular)
+        label.numberOfLines = 1
+        label.textAlignment = .center
         return label
     }()
     
@@ -32,6 +38,12 @@ class WeatherTableViewCell: UITableViewCell {
     
     private let tempLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Wednesday"
+        label.textColor = .label
+        label.font = .systemFont(ofSize: 13, weight: .regular)
+        label.numberOfLines = 1
+        label.textAlignment = .center
         return label
     }()
     
@@ -40,14 +52,20 @@ class WeatherTableViewCell: UITableViewCell {
     }
     
     private func setupViews() {
-        self.addSubview(bodyStackView)
-        bodyStackView.addArrangedSubview(dayLabel)
-        bodyStackView.addArrangedSubview(weatherIcon)
-        bodyStackView.addArrangedSubview(tempLabel)
+        self.addSubview(weatherStackView)
+        weatherStackView.addArrangedSubview(dayLabel)
+        weatherStackView.addArrangedSubview(weatherIcon)
+        weatherStackView.addArrangedSubview(tempLabel)
     }
     
     private func configureConstraints() {
-        
+        let weatherStackViewConstraints = [
+            weatherStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            weatherStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            weatherStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            weatherStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
+        ]
+        NSLayoutConstraint.activate(weatherStackViewConstraints)
     }
     
     required init?(coder: NSCoder) {
