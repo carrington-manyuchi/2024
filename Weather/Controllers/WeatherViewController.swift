@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class WeatherViewController: UIViewController {
     
@@ -44,7 +45,14 @@ class WeatherViewController: UIViewController {
         tableView.register(WeatherHeader.self, forHeaderFooterViewReuseIdentifier: "header")
         return tableView
     }()
-
+    
+    var hourly = [Current]()
+    var models = [Daily]()
+    var current: Current?
+    
+    let locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -122,3 +130,8 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+
+
+extension  WeatherViewController: CLLocationManagerDelegate {
+    
+}
